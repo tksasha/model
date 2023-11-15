@@ -9,5 +9,5 @@ type Model struct {
 }
 
 func (model *Model) IsValid() bool {
-	// TODO: implement me
+	return model.Errors.IsEmpty()
 }

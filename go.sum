@@ -1,2 +1,4 @@
-github.com/tksasha/validations v0.0.0-20211128080247-dc1f2e617bcc h1:wAFplqnz9SSoD7TaXoYZdFldWw3/a8ZLVBmIjeMLYYY=
+github.com/tksasha/model v0.0.0-20211128083555-1716514f2f32/go.mod h1:CWbUADnox2ih1QrZP8fApCmMH4RhAXV8DKITLgScq+s=
 github.com/tksasha/validations v0.0.0-20211128080247-dc1f2e617bcc/go.mod h1:MAoRt+GTVBv5EcBWPGdIlezl7kwGLk1uGoqm3+rwBhE=
+github.com/tksasha/validations v0.0.2 h1:XmZ24ZXs5oQMUz/tD4XuqlktOV0s0euJAXQ5f12GN9s=
+github.com/tksasha/validations v0.0.2/go.mod h1:nIi7STqrwtdXeumBpXAii/x/ktcoSYYegg5m3SXn/WE=
