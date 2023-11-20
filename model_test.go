@@ -6,18 +6,20 @@ import (
 	"github.com/tksasha/validations"
 )
 
+const M = "\033[31m`%v` was expected, but it is `%v`\033[0m"
+
 func TestIsValid(t *testing.T) {
-	model := Model{}
+	model := new(Model)
 
 	t.Run("when it is valid", func(t *testing.T) {
 		model.Errors = validations.NewErrors()
 
-		expected := true
+		exp := true
 
-		result := model.IsValid()
+		res := model.IsValid()
 
-		if expected != result {
-			t.Errorf(validations.M, expected, result)
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 
@@ -26,12 +28,42 @@ func TestIsValid(t *testing.T) {
 
 		model.Errors.Add("attribute", "can't be blank")
 
-		expected := false
+		exp := false
 
-		result := model.IsValid()
+		res := model.IsValid()
 
-		if expected != result {
-			t.Errorf(validations.M, expected, result)
+		if exp != res {
+			t.Errorf(M, exp, res)
+		}
+	})
+}
+
+func TestIsNotValid(t *testing.T) {
+	model := new(Model)
+
+	t.Run("when it is valid", func(t *testing.T) {
+		model.Errors = validations.NewErrors()
+
+		exp := false
+
+		res := model.IsNotValid()
+
+		if exp != res {
+			t.Errorf(M, exp, res)
+		}
+	})
+
+	t.Run("when it is not valid", func(t *testing.T) {
+		model.Errors = validations.NewErrors()
+
+		model.Errors.Add("attribute", "is not valid")
+
+		exp := true
+
+		res := model.IsNotValid()
+
+		if exp != res {
+			t.Errorf(M, exp, res)
 		}
 	})
 }

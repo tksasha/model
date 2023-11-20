@@ -11,3 +11,7 @@ type Model struct {
 func (model *Model) IsValid() bool {
 	return model.Errors.IsEmpty()
 }
+
+func (model *Model) IsNotValid() bool {
+	return model.Errors.IsNotEmpty()
+}
