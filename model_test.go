@@ -2,8 +2,6 @@ package model
 
 import (
 	"testing"
-
-	"github.com/tksasha/validations"
 )
 
 const M = "\033[31m`%v` was expected, but it is `%v`\033[0m"
@@ -12,7 +10,7 @@ func TestIsValid(t *testing.T) {
 	model := new(Model)
 
 	t.Run("when it is valid", func(t *testing.T) {
-		model.Errors = validations.NewErrors()
+		model.Errors = NewErrors()
 
 		exp := true
 
@@ -24,7 +22,7 @@ func TestIsValid(t *testing.T) {
 	})
 
 	t.Run("when it is not valid", func(t *testing.T) {
-		model.Errors = validations.NewErrors()
+		model.Errors = NewErrors()
 
 		model.Errors.Add("attribute", "can't be blank")
 
@@ -42,7 +40,7 @@ func TestIsNotValid(t *testing.T) {
 	model := new(Model)
 
 	t.Run("when it is valid", func(t *testing.T) {
-		model.Errors = validations.NewErrors()
+		model.Errors = NewErrors()
 
 		exp := false
 
@@ -54,7 +52,7 @@ func TestIsNotValid(t *testing.T) {
 	})
 
 	t.Run("when it is not valid", func(t *testing.T) {
-		model.Errors = validations.NewErrors()
+		model.Errors = NewErrors()
 
 		model.Errors.Add("attribute", "is not valid")
 
