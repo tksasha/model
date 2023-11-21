@@ -1,7 +1,12 @@
 package model
 
+import (
+	"database/sql"
+)
+
 type Model struct {
-	Errors Errors `json:"-"`
+	db     *sql.DB `json:"-"`
+	Errors Errors  `json:"-"`
 }
 
 func (model *Model) IsValid() bool {
