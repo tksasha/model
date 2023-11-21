@@ -5,7 +5,7 @@ import (
 )
 
 type Model struct {
-	db     *sql.DB `json:"-"`
+	DB     *sql.DB `json:"-"`
 	Errors Errors  `json:"-"`
 }
 
