@@ -2,88 +2,58 @@ package model
 
 import (
 	"testing"
+
+	"gotest.tools/v3/assert"
 )
 
 func TestAdd(t *testing.T) {
-	exp := "can't be blank"
-
 	errs := NewErrors()
 
 	errs.Add("name", "can't be blank")
 
 	res := errs.Get("name")[0]
 
-	if exp != res {
-		t.Errorf(M, exp, res)
-	}
+	assert.Equal(t, res, "can't be blank")
 }
 
 func TestGet(t *testing.T) {
-	exp := "can't be blank"
-
 	errs := NewErrors()
 
 	errs.Add("name", "can't be blank")
 
 	res := errs.Get("name")[0]
 
-	if exp != res {
-		t.Errorf(M, exp, res)
-	}
+	assert.Equal(t, res, "can't be blank")
 }
 
 func TestIsEmpty(t *testing.T) {
 	t.Run("when it is empty", func(t *testing.T) {
-		exp := true
-
 		errs := NewErrors()
 
-		res := errs.IsEmpty()
-
-		if exp != res {
-			t.Errorf(M, exp, res)
-		}
+		assert.Assert(t, errs.IsEmpty())
 	})
 
 	t.Run("when it is not empty", func(t *testing.T) {
-		exp := false
-
 		errs := NewErrors()
 
 		errs.Add("name", "can't be blank")
 
-		res := errs.IsEmpty()
-
-		if exp != res {
-			t.Errorf(M, exp, res)
-		}
+		assert.Equal(t, errs.IsEmpty(), false)
 	})
 }
 
 func TestIsNotEmpty(t *testing.T) {
 	t.Run("when it is empty", func(t *testing.T) {
-		exp := false
-
 		errs := NewErrors()
 
-		res := errs.IsNotEmpty()
-
-		if exp != res {
-			t.Errorf(M, exp, res)
-		}
+		assert.Equal(t, errs.IsNotEmpty(), false)
 	})
 
 	t.Run("when it is not empty", func(t *testing.T) {
-		exp := true
-
 		errs := NewErrors()
 
 		errs.Add("name", "can't be blank")
 
-		res := errs.IsNotEmpty()
-
-		if exp != res {
-			t.Errorf(M, exp, res)
-		}
+		assert.Assert(t, errs.IsNotEmpty())
 	})
 }
