@@ -1,13 +1,13 @@
 package model
 
+import (
+	"github.com/tksasha/model/errors"
+)
+
 type Model struct {
-	Errors Errors `json:"-"`
+	Errors errors.Errors `json:"-"`
 }
 
 func (model *Model) IsValid() bool {
 	return model.Errors.IsEmpty()
-}
-
-func (model *Model) IsNotValid() bool {
-	return model.Errors.IsNotEmpty()
 }
