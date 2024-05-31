@@ -1,45 +1,43 @@
 package model_test
 
 import (
+	"encoding/json"
+	"slices"
 	"testing"
 
 	"github.com/tksasha/model"
-	"github.com/tksasha/model/errors"
 	"gotest.tools/v3/assert"
 )
 
-var (
-	subject = new(model.Model)
-)
-
 func TestIsValid(t *testing.T) {
-	t.Run("when it is valid", func(t *testing.T) {
-		subject.Errors = errors.New()
+	sbj := model.New()
 
-		assert.Assert(t, subject.IsValid())
+	t.Run("when it is valid", func(t *testing.T) {
+		res := sbj.IsValid()
+
+		assert.Assert(t, res)
 	})
 
 	t.Run("when it is not valid", func(t *testing.T) {
-		subject.Errors = errors.New()
+		sbj.Errors.Set("attribute", "can't be blank")
 
-		subject.Errors.Add("attribute", "can't be blank")
+		res := !sbj.IsValid()
 
-		assert.Assert(t, !subject.IsValid())
+		assert.Assert(t, res)
 	})
 }
 
-func TestIsNotValid(t *testing.T) {
-	t.Run("when it is valid", func(t *testing.T) {
-		subject.Errors = errors.New()
+func TestMarshalJSON(t *testing.T) {
+	sbj := model.New()
 
-		assert.Assert(t, subject.IsValid())
-	})
+	sbj.Errors.Set("attribute", "can't be blank")
 
-	t.Run("when it is not valid", func(t *testing.T) {
-		subject.Errors = errors.New()
+	bts, err := json.Marshal(sbj)
 
-		subject.Errors.Add("attribute", "is not valid")
+	exp := []byte(`{"errors":{"attribute":["can't be blank"]}}`)
 
-		assert.Assert(t, !subject.IsValid())
-	})
+	res := slices.Equal(bts, exp)
+
+	assert.NilError(t, err)
+	assert.Assert(t, res)
 }

@@ -10,62 +10,78 @@ import (
 
 func TestNew(t *testing.T) {
 	t.Run("when no one argument is provided", func(t *testing.T) {
-		subject := errors.New()
+		sbj := errors.New()
 
-		assert.Assert(t, subject.IsEmpty())
+		res := sbj.IsEmpty()
+
+		assert.Assert(t, res)
 	})
 
 	t.Run("when only one argument is provided", func(t *testing.T) {
-		subject := errors.New("name")
+		sbj := errors.New("name")
 
-		assert.Assert(t, subject.IsEmpty())
+		res := sbj.IsEmpty()
+
+		assert.Assert(t, res)
 	})
 
 	t.Run("when two arguments are provided", func(t *testing.T) {
-		subject := errors.New("name", "can't be blank")
+		sbj := errors.New("name", "can't be blank")
 
-		assert.Assert(t, is.Contains(subject["errors"]["name"], "can't be blank"))
+		res := sbj.Get("name")
+
+		assert.Assert(t, is.Contains(res, "can't be blank"))
 	})
 }
 
-func TestAdd(t *testing.T) {
+func TestSet(t *testing.T) {
 	t.Run("when attribute in lowercase", func(t *testing.T) {
-		subject := errors.New()
+		sbj := errors.New()
 
-		subject.Add("name", "required")
+		sbj.Set("name", "required")
 
-		assert.Assert(t, is.Contains(subject["errors"]["name"], "required"))
+		res := sbj.Get("name")
+
+		assert.Assert(t, is.Contains(res, "required"))
 	})
 
 	t.Run("when attribute in uppercase", func(t *testing.T) {
-		subject := errors.New()
+		sbj := errors.New()
 
-		subject.Add("Name", "required")
+		sbj.Set("Name", "required")
 
-		assert.Assert(t, is.Contains(subject["errors"]["name"], "required"))
+		res := sbj.Get("name")
+
+		assert.Assert(t, is.Contains(res, "required"))
 	})
 }
 
 func TestGet(t *testing.T) {
-	subject := errors.New()
+	sbj := errors.New()
 
-	subject.Add("name", "can't be blank")
+	sbj.Set("name", "can't be blank")
 
-	assert.Assert(t, is.Contains(subject["errors"]["name"], "can't be blank"))
+	res := sbj.Get("name")
+
+	assert.Assert(t, is.Contains(res, "can't be blank"))
 }
 
 func TestIsEmpty(t *testing.T) {
 	t.Run("when it is empty", func(t *testing.T) {
-		subject := errors.New()
+		sbj := errors.New()
 
-		assert.Assert(t, subject.IsEmpty())
+		res := sbj.IsEmpty()
+
+		assert.Assert(t, res)
 	})
 
 	t.Run("when it is not empty", func(t *testing.T) {
-		subject := errors.New()
+		sbj := errors.New()
 
-		subject.Add("name", "can't be blank")
+		sbj.Set("name", "can't be blank")
 
-		assert.Assert(t, !subject.IsEmpty())
+		res := !sbj.IsEmpty()
+
+		assert.Assert(t, res)
 	})
 }

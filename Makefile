@@ -1,26 +1,35 @@
-PACKAGES=\
-	github.com/tksasha/model \
-	github.com/tksasha/model/errors \
-
 .PHONY: all
-all: vet fix fmt test
+all: vet fix fmt lint test
 
 .PHONY: vet
 vet:
 	@echo "go vet"
-	@go vet $(PACKAGES)
+	@go vet ./...
 
 .PHONY: fix
 fix:
 	@echo "go fix"
-	@go fix $(PACKAGES)
+	@go fix ./...
 
 .PHONY: fmt
 fmt:
 	@echo "go fmt"
-	@go fmt $(PACKAGES)
+	@gofumpt -l -w .
+
+.PHONY: lint
+lint:
+	@echo "go lint"
+	@golangci-lint run
 
 .PHONY: test
 test:
 	@echo "go test"
-	@go test $(PACKAGES)
+	@go test ./...
+
+.PHONY: prepare
+prepare:
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go get mvdan.cc/gofumpt@latest
+	go install mvdan.cc/gofumpt@latest
+	go mod tidy

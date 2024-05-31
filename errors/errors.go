@@ -4,28 +4,43 @@ import (
 	"github.com/tksasha/utils/strings"
 )
 
-type Errors map[string]map[string][]string
+type Errors interface {
+	Set(attribute, message string)
+	Get(attribute string) []string
+	IsEmpty() bool
+}
+
+type errors map[string][]string
 
 func New(args ...string) Errors {
-	errs := Errors{"errors": {}}
+	errs := errors{}
 
-	if len(args) == 2 {
-		errs.Add(args[0], args[1])
+	if len(args) == 2 { //nolint:mnd
+		errs.Set(args[0], args[1])
 	}
 
 	return errs
 }
 
-func (errs Errors) Add(attribute, message string) {
+func (e errors) Set(attribute, message string) {
 	attribute = strings.ToSnakeCase(attribute)
 
-	errs["errors"][attribute] = append(errs["errors"][attribute], message)
+	e[attribute] = append(e[attribute], message)
 }
 
-func (errs Errors) IsEmpty() bool {
-	return errs.size() == 0
+func (e errors) Get(attribute string) []string {
+	errs, ok := e[attribute]
+	if !ok {
+		return []string{}
+	}
+
+	return errs
 }
 
-func (errs Errors) size() int {
-	return len(errs["errors"])
+func (e errors) IsEmpty() bool {
+	return e.size() == 0
+}
+
+func (e errors) size() int {
+	return len(e)
 }
