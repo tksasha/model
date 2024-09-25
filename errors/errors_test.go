@@ -67,7 +67,7 @@ func TestGet(t *testing.T) {
 }
 
 func TestEmpty(t *testing.T) {
-	t.Run("when there are no error it should return true", func(t *testing.T) {
+	t.Run("when there are no errors it should return true", func(t *testing.T) {
 		sbj := errors.New().Empty()
 
 		assert.Assert(t, sbj)
