@@ -31,7 +31,7 @@ func (e Errors) Get(attribute string) []string {
 	return errs
 }
 
-func (e Errors) IsEmpty() bool {
+func (e Errors) Empty() bool {
 	return len(e) == 0
 }
 

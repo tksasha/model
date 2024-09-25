@@ -15,5 +15,5 @@ func New() *Model {
 }
 
 func (model *Model) IsValid() bool {
-	return model.Errors.IsEmpty()
+	return model.Errors.Empty()
 }
