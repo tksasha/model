@@ -4,16 +4,10 @@ import (
 	"github.com/tksasha/utils/strings"
 )
 
-type Errors interface {
-	Set(attribute, message string)
-	Get(attribute string) []string
-	IsEmpty() bool
-}
-
-type errors map[string][]string
+type Errors map[string][]string
 
 func New(args ...string) Errors {
-	errs := errors{}
+	errs := Errors{}
 
 	if len(args) == 2 { //nolint:mnd
 		errs.Set(args[0], args[1])
@@ -22,13 +16,13 @@ func New(args ...string) Errors {
 	return errs
 }
 
-func (e errors) Set(attribute, message string) {
+func (e Errors) Set(attribute, message string) {
 	attribute = strings.ToSnakeCase(attribute)
 
 	e[attribute] = append(e[attribute], message)
 }
 
-func (e errors) Get(attribute string) []string {
+func (e Errors) Get(attribute string) []string {
 	errs, ok := e[attribute]
 	if !ok {
 		return []string{}
@@ -37,10 +31,10 @@ func (e errors) Get(attribute string) []string {
 	return errs
 }
 
-func (e errors) IsEmpty() bool {
-	return e.size() == 0
+func (e Errors) IsEmpty() bool {
+	return len(e) == 0
 }
 
-func (e errors) size() int {
-	return len(e)
+func (e Errors) Check(attribute string) bool {
+	return len(e[attribute]) > 0
 }

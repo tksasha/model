@@ -85,3 +85,17 @@ func TestIsEmpty(t *testing.T) {
 		assert.Assert(t, res)
 	})
 }
+
+func TestCheck(t *testing.T) {
+	t.Run("when there are errors for an attribute it should return true", func(t *testing.T) {
+		sbj := errors.New("foo", "bar").Check("foo")
+
+		assert.Assert(t, sbj)
+	})
+
+	t.Run("when there no errors for an attribute it should return false", func(t *testing.T) {
+		sbj := errors.New("foo", "bar").Check("jar")
+
+		assert.Assert(t, !sbj)
+	})
+}
