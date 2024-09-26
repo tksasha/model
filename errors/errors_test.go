@@ -80,15 +80,15 @@ func TestEmpty(t *testing.T) {
 	})
 }
 
-func TestCheck(t *testing.T) {
+func TestHas(t *testing.T) {
 	t.Run("when there are errors for an attribute it should return true", func(t *testing.T) {
-		sbj := errors.New("foo", "bar").Check("foo")
+		sbj := errors.New("foo", "bar").Has("foo")
 
 		assert.Assert(t, sbj)
 	})
 
 	t.Run("when there no errors for an attribute it should return false", func(t *testing.T) {
-		sbj := errors.New("foo", "bar").Check("jar")
+		sbj := errors.New("foo", "bar").Has("jar")
 
 		assert.Assert(t, !sbj)
 	})

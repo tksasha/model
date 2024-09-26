@@ -35,6 +35,6 @@ func (e Errors) Empty() bool {
 	return len(e) == 0
 }
 
-func (e Errors) Check(attribute string) bool {
+func (e Errors) Has(attribute string) bool {
 	return len(e[attribute]) > 0
 }
