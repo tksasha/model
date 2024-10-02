@@ -9,11 +9,11 @@ import (
 	"gotest.tools/v3/assert"
 )
 
-func TestValid(t *testing.T) {
+func TestIsValid(t *testing.T) {
 	sbj := model.New()
 
 	t.Run("when there are no errors it should return true", func(t *testing.T) {
-		res := sbj.Valid()
+		res := sbj.IsValid()
 
 		assert.Assert(t, res)
 	})
@@ -21,7 +21,7 @@ func TestValid(t *testing.T) {
 	t.Run("when there are errors it should return false", func(t *testing.T) {
 		sbj.Errors.Set("attribute", "can't be blank")
 
-		res := sbj.Valid()
+		res := sbj.IsValid()
 
 		assert.Assert(t, !res)
 	})

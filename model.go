@@ -14,6 +14,6 @@ func New() *Model {
 	}
 }
 
-func (model *Model) Valid() bool {
-	return model.Errors.Empty()
+func (model *Model) IsValid() bool {
+	return model.Errors.IsEmpty()
 }

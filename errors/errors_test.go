@@ -12,7 +12,7 @@ func TestNew(t *testing.T) {
 	t.Run("when no one argument is provided", func(t *testing.T) {
 		sbj := errors.New()
 
-		res := sbj.Empty()
+		res := sbj.IsEmpty()
 
 		assert.Assert(t, res)
 	})
@@ -20,7 +20,7 @@ func TestNew(t *testing.T) {
 	t.Run("when only one argument is provided", func(t *testing.T) {
 		sbj := errors.New("name")
 
-		res := sbj.Empty()
+		res := sbj.IsEmpty()
 
 		assert.Assert(t, res)
 	})
@@ -66,15 +66,15 @@ func TestGet(t *testing.T) {
 	assert.Assert(t, is.Contains(res, "can't be blank"))
 }
 
-func TestEmpty(t *testing.T) {
+func TestIsEmpty(t *testing.T) {
 	t.Run("when there are no errors it should return true", func(t *testing.T) {
-		sbj := errors.New().Empty()
+		sbj := errors.New().IsEmpty()
 
 		assert.Assert(t, sbj)
 	})
 
 	t.Run("when there are errors it should return false", func(t *testing.T) {
-		sbj := errors.New("name", "can't be blank").Empty()
+		sbj := errors.New("name", "can't be blank").IsEmpty()
 
 		assert.Assert(t, !sbj)
 	})
