@@ -5,7 +5,7 @@ import (
 )
 
 type Model struct {
-	Errors errors.Errors `json:"errors"`
+	Errors errors.ValidationError `json:"errors"`
 }
 
 func New() *Model {
