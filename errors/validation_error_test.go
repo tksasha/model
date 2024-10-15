@@ -21,10 +21,10 @@ func TestNewWithError(t *testing.T) {
 	assert.Assert(t, is.Contains(err.Get("name"), "can't be blank"))
 }
 
-func TestError(t *testing.T) {
+func TestValidationError_String(t *testing.T) {
 	err := errors.NewWithError("name", "can't be blank")
 
-	assert.Error(t, err, "name: can't be blank")
+	assert.Equal(t, err.String(), "name: can't be blank")
 }
 
 func TestSet(t *testing.T) {

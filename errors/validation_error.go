@@ -21,7 +21,7 @@ func NewWithError(attribute, message string) ValidationError {
 	return err
 }
 
-func (e ValidationError) Error() string {
+func (e ValidationError) String() string {
 	messages := []string{}
 
 	for attribute, errs := range e {
